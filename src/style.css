@@ -1,0 +1,51 @@
+.continer {
+  width: 30%;
+  height: 60vh;
+  display: inline-block;
+  margin: 150px 200px;
+}
+
+h1 {
+  color: #fa505f;
+  margin-bottom: 40px;
+}
+.my-form {
+  height: 100%;
+}
+.config {
+  margin: 30px 0;
+}
+.config label {
+  color: #968cc0;
+  display: block;
+  padding-bottom: 10px;
+  font-size: 20px;
+}
+.config input {
+  width: 300px;
+  height: 2rem;
+  background-color: #F6F7FA;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid   #c9d7ff;
+  font-size: 18px;
+  color: black;
+}
+.sign{
+  font-size: 20px;
+  background-color: #FA505F;
+  color: white;
+  border: none;
+  border-radius:10px;
+  width: 160px;
+  height: 50px;
+  margin-right: 12px;
+}
+
+img {
+  float: right;
+  width: 900px;
+  height: 800px;
+  object-fit: contain;
+  margin-right: 40px;
+}
