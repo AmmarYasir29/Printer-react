@@ -1,34 +1,45 @@
-import img from "../img/sign.svg";
 import "../style.css";
-import React, { useState, useEffect } from "react";
-function Login() {
+import img from "../img/sign.svg";
+import React, { useEffect, useState } from "react";
+
+const Signup = () => {
   useEffect(() => {
-    document.title = "Sign In";
+    document.title = "Sign Up";
   }, []);
+  const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
 
   const changePhone = (e) => setPhone(e.target.value);
   const changePassword = (e) => setPassword(e.target.value);
+  const changeName = (e) => setName(e.target.value);
   function handlSubmit(e) {
     e.preventDefault();
 
-    var myHeaders = new Headers();
+    let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
-    var raw = JSON.stringify({ phone, password });
+    let raw = JSON.stringify({
+      name,
+      phone,
+      password,
+      Lang: "1111111",
+      lat: "22222222",
+    });
 
-    var requestOptions = {
+    let requestOptions = {
       method: "POST",
       headers: myHeaders,
       body: raw,
       redirect: "follow",
     };
-    fetch("https://iq-printer.herokuapp.com/login", requestOptions)
+
+    fetch("https://iq-printer.herokuapp.com/register", requestOptions)
       .then((response) => response.text())
-      .then((result) => alert("You Login!"))
+      .then((result) => console.log(result))
       .catch((error) => console.log("error", error));
   }
+
   return (
     <>
       <div className="continer">
@@ -36,7 +47,7 @@ function Login() {
         <form className="my-form" onSubmit={handlSubmit}>
           <div className="config">
             <label>Name</label>
-            <input placeholder="Name" type="text" />
+            <input placeholder="Name" onChange={changeName} type="text" />
           </div>
           <div className="config">
             <label>Phone</label>
@@ -51,13 +62,12 @@ function Login() {
             <label>Password</label>
             <input type="password" name="password" onChange={changePassword} />
           </div>
-          <input className="sign" type="submit" value="Sign In" />
-          <input className="sign" type="button" value="Sign Up" />
+          <input className="sign" type="submit" value="Sign Up" />
         </form>
       </div>
       <img src={img} alt="Sign In img" />
     </>
   );
-}
+};
 
-export default Login;
+export default Signup;
