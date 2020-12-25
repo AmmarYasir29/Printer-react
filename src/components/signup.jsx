@@ -13,6 +13,7 @@ const Signup = () => {
   const changePhone = (e) => setPhone(e.target.value);
   const changePassword = (e) => setPassword(e.target.value);
   const changeName = (e) => setName(e.target.value);
+
   function handlSubmit(e) {
     e.preventDefault();
 

@@ -1,6 +1,8 @@
 import img from "../img/sign.svg";
 import "../style.css";
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+
 function Login() {
   useEffect(() => {
     document.title = "Sign In";
@@ -52,7 +54,9 @@ function Login() {
             <input type="password" name="password" onChange={changePassword} />
           </div>
           <input className="sign" type="submit" value="Sign In" />
-          <input className="sign" type="button" value="Sign Up" />
+          <Link to="/singup">
+            <input className="sign" type="button" value="Sign Up" />
+          </Link>
         </form>
       </div>
       <img src={img} alt="Sign In img" />
