@@ -1,8 +1,8 @@
 * {
   margin: 0;
   padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
 }
 .continer {
@@ -11,10 +11,16 @@
   display: inline-block;
   margin: 150px 200px;
 }
-
 h1 {
-  color: #fa505f;
   margin-bottom: 40px;
+  color: #fa505f;
+}
+.intro{
+  color: #fa505f;
+  margin-bottom:30px;
+}
+.intro h1 {
+  margin-bottom: 10px;
 }
 .my-form {
   height: 100%;
@@ -31,24 +37,41 @@ h1 {
 .config input {
   width: 300px;
   height: 2rem;
-  background-color: #F6F7FA;
+  background-color: #f6f7fa;
   padding: 15px;
   border-radius: 8px;
-  border: 1px solid   #c9d7ff;
+  border: 1px solid #c9d7ff;
   font-size: 18px;
   color: black;
 }
-.sign{
+.sign {
   font-size: 20px;
-  background-color: #FA505F;
+  background-color: #fa505f;
   color: white;
   border: none;
-  border-radius:10px;
-  width: 160px;
-  height: 50px;
-  margin-right: 12px;
+  border-radius: 10px;
+  width: 330px;
+  height: 60px;
 }
-
+.signup {
+  width: 250px;
+  height: 50px;
+  background-color: #3FA421;
+  font-size: 20px;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  margin: 30px 40px;
+}
+.register{
+  font-size: 20px;
+  background-color: #3FA421;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  width: 330px;
+  height: 60px;
+}
 img {
   float: right;
   width: 900px;

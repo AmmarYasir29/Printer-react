@@ -36,15 +36,21 @@ const Signup = () => {
     };
 
     fetch("https://iq-printer.herokuapp.com/register", requestOptions)
-      .then((response) => response.text())
-      .then((result) => console.log(result))
+      .then((response) => response.json())
+      .then((result) => {
+        if (!result.status) return alert(result.err);
+        return alert(result.status);
+      })
       .catch((error) => console.log("error", error));
   }
 
   return (
     <>
       <div className="continer">
-        <h1>Get Started</h1>
+        <div className="intro">
+          <h1>Sign Up</h1>
+          <p>It’s quick and easy.</p>
+        </div>
         <form className="my-form" onSubmit={handlSubmit}>
           <div className="config">
             <label>Name</label>
@@ -63,7 +69,7 @@ const Signup = () => {
             <label>Password</label>
             <input type="password" name="password" onChange={changePassword} />
           </div>
-          <input className="sign" type="submit" value="Sign Up" />
+          <input className="register" type="submit" value="Sign Up" />
         </form>
       </div>
       <img src={img} alt="Sign In img" />
