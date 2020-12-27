@@ -1,4 +1,4 @@
-import "../style.css";
+import "../Style/style.css";
 import img from "../img/sign.svg";
 import React, { useEffect, useState } from "react";
 

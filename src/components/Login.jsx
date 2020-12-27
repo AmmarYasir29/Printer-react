@@ -1,5 +1,5 @@
 import img from "../img/sign.svg";
-import "../style.css";
+import "../Style/login.css";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 // import Snackbar from "@material-ui/core/Snackbar";

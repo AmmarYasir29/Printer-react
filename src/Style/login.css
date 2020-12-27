@@ -1,0 +1,118 @@
+.continer {
+  width: 30%;
+  height: 60vh;
+  display: inline-block;
+  margin: 150px 200px;
+}
+h1 {
+  margin-bottom: 40px;
+  color: #fa505f;
+}
+.my-form {
+  height: 100%;
+}
+.config {
+  margin: 30px 0;
+}
+.config label {
+  color: #968cc0;
+  display: block;
+  padding-bottom: 10px;
+  font-size: 20px;
+}
+.config input {
+  width: 300px;
+  height: 2rem;
+  background-color: #f6f7fa;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #c9d7ff;
+  font-size: 18px;
+  color: black;
+}
+.sign {
+  font-size: 20px;
+  background-color: #fa505f;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  width: 330px;
+  height: 60px;
+}
+.signup {
+  width: 250px;
+  height: 50px;
+  background-color: #3fa421;
+  font-size: 20px;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  margin: 30px 40px;
+}
+img {
+  float: right;
+  width: 900px;
+  height: 800px;
+  object-fit: contain;
+  margin-right: 40px;
+}
+@media only screen and (max-width: 600px) {
+  .continer {
+    width: 80%;
+    display: block;
+    height: 700px;
+    margin: 50px auto;
+  }
+  h1 {
+    padding: 30px 40px;
+    font-size: 40px;
+    color: #fa505f;
+  }
+  img {
+    display: none;
+  }
+  .my-form {
+    height: 80%;
+    padding: 60px;
+  }
+  .config {
+    margin: 50px 0;
+  }
+  .config label {
+    color: #968cc0;
+    display: block;
+    padding-bottom: 20px;
+    font-size: 20px;
+    margin-left: 60px;
+  }
+  .config input {
+    width: 100%;
+    height: 1rem;
+    background-color: #f6f7fa;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #c9d7ff;
+    font-size: 18px;
+    color: black;
+  }
+  .sign {
+    font-size: 20px;
+    background-color: #fa505f;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    width: 100%;
+    height: 40px;
+    margin: 10px 0 30px 15px;
+  }
+  .signup {
+    width: 100%;
+    height: 40px;
+    background-color: #3fa421;
+    font-size: 20px;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    margin: 30px 15px;
+  }
+}
