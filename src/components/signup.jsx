@@ -1,15 +1,30 @@
 import "../Style/style.css";
 import img from "../img/sign.svg";
 import React, { useEffect, useState } from "react";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
+import { useHistory } from "react-router-dom";
 
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 const Signup = () => {
   useEffect(() => {
     document.title = "Sign Up";
   }, []);
+  const history = useHistory();
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
+  const [open, setOpen] = React.useState(false);
+  const [msg, setMsg] = useState([]);
 
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
   const changePhone = (e) => setPhone(e.target.value);
   const changePassword = (e) => setPassword(e.target.value);
   const changeName = (e) => setName(e.target.value);
@@ -38,14 +53,33 @@ const Signup = () => {
     fetch("https://iq-printer.herokuapp.com/register", requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        if (!result.status) return alert(result.err);
-        return alert(result.status);
+        if (!result.status) {
+          setOpen(true);
+          //IF the error MSG is obj
+          if (typeof result.err === "object") {
+            setOpen(true);
+            Object.keys(result.err).forEach((key) => {
+              setMsg(result.err[key]);
+            });
+          } //ELSE IF the error MSG is not obj
+          else setMsg(result.err);
+        } else {
+          setOpen(false);
+          history.push("/");
+        }
       })
       .catch((error) => console.log("error", error));
   }
 
   return (
     <>
+      {open ? (
+        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+          <Alert severity="error"> {msg}</Alert>
+        </Snackbar>
+      ) : (
+        console.log("correct info!")
+      )}
       <div className="continer">
         <div className="intro">
           <h1>Sign Up</h1>

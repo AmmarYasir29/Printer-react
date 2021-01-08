@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
+import { useHistory } from "react-router-dom";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -12,7 +13,7 @@ function Login() {
   useEffect(() => {
     document.title = "Sign In";
   }, []);
-
+  const history = useHistory();
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [open, setOpen] = React.useState(false);
@@ -51,7 +52,11 @@ function Login() {
               setMsg(result.err[key]);
             });
           } else setMsg(result.err);
-        } else setOpen(false);
+        } else {
+          setOpen(false);
+          history.push("/home");
+          setIsLoading(false);
+        }
       })
       .catch((error) => alert(error));
     setIsLoading(false);
