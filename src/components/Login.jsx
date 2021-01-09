@@ -18,18 +18,14 @@ function Login() {
   const [password, setPassword] = useState("");
   const [open, setOpen] = React.useState(false);
   const [msg, setMsg] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
   const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
+    if (reason === "clickaway") return;
     setOpen(false);
   };
   const changePhone = (e) => setPhone(e.target.value);
   const changePassword = (e) => setPassword(e.target.value);
   function handlSubmit(e) {
     e.preventDefault();
-    setIsLoading(true);
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
@@ -44,32 +40,27 @@ function Login() {
     fetch("https://iq-printer.herokuapp.com/login", requestOptions)
       .then((response) => response.json())
       .then((result) => {
+        if (result.status)
+          localStorage.setItem("blog_token", JSON.stringify(result.data.token));
         if (!result.status) {
           setOpen(true);
-          if (typeof result.err === "object") {
-            setOpen(true);
-            Object.keys(result.err).forEach((key) => {
-              setMsg(result.err[key]);
-            });
-          } else setMsg(result.err);
+          if (typeof result.err === "object")
+            Object.keys(result.err).forEach((key) => setMsg(result.err[key]));
+          else setMsg(result.err);
         } else {
           setOpen(false);
           history.push("/home");
-          setIsLoading(false);
         }
       })
       .catch((error) => alert(error));
-    setIsLoading(false);
   }
 
   return (
     <>
-      {open ? (
+      {open && (
         <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
           <Alert severity="error"> {msg}</Alert>
         </Snackbar>
-      ) : (
-        console.log("correct info!")
       )}
       <div className="continer">
         <h1>Get Started</h1>

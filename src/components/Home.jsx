@@ -2,31 +2,23 @@ import style from "../Style/Home.module.css";
 import React, { useEffect, useRef, useState } from "react";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
+import { useHistory } from "react-router-dom";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 var mapboxgl = require("mapbox-gl/dist/mapbox-gl.js");
-var geolocate = new mapboxgl.GeolocateControl();
 
-const users = [
-  {
-    id: 1,
-    name: "Muartdha",
-    coordinates: [-77.038659, 38.931567],
-    image: "https://placekitten.com/g/40/40/",
-    color: "#ff9800",
-  },
-  {
-    id: 2,
-    name: "Ali",
-    coordinates: [44.31, 33.36],
-    image: "https://placekitten.com/g/50/50/",
-    color: "#e91e63",
-  },
-];
+const user = {
+  id: 1,
+  name: "Ali",
+  coordinates: [44.31, 33.36],
+  image: "https://placekitten.com/g/50/50/",
+  color: "#e91e63",
+};
 const Home = (props) => {
-  let lant, lat;
+  const [lng, setLng] = useState(44.313388);
+  const [lat, setLat] = useState(33.365859);
   const service = useRef(null);
   const about = useRef(null);
   const [value, setValue] = useState("Please write an note to printer.");
@@ -38,85 +30,36 @@ const Home = (props) => {
   const handleText = (e) => {
     setValue(e.target.value);
   };
+  const theMap = useRef(null);
+  const history = useHistory();
   useEffect(() => {
-    <link
-      href="https://api.mapbox.com/mapbox-gl-js/v2.0.0/mapbox-gl.css"
-      rel="stylesheet"
-    />;
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        setLng(position.coords.latitude);
+        setLat(position.coords.longitude);
+      });
+    }
+    if (!localStorage.getItem("blog_token")) {
+      history.push("/");
+    }
 
     mapboxgl.accessToken =
       "pk.eyJ1IjoiYW1tYXIteWFzaXIiLCJhIjoiY2tnemI5ZGg0MTI2eTJ1b2V1czFodjc5NyJ9.0vCsyYA-dbvDXbfYcGdV7A";
     var map = new mapboxgl.Map({
-      container: "theMap",
-      style: "mapbox://styles/ammar-yasir/ckjiz2ac404sr19nxbunmg4g2",
-      center: [44.313388, 33.365859],
+      container: theMap.current,
+      style: "mapbox://styles/ammar-yasir/ckjpmbykr4hgj19t4br6p8a7q",
+      center: [lng, lat],
       zoom: 10,
     });
-    //TODO: add user cordinate
-    // map.addControl(geolocate);
-    // geolocate.on("geolocate", function (e) {
-    //   var lon = e.coords.longitude;
-    //   var lat = e.coords.latitude;
-    //   var position = [lon, lat];
-    //   console.log("position");
-    // });
-    // if (navigator.geolocation) {
-    //   console.log("test");
-    //   navigator.geolocation.getCurrentPosition((position) => {
-    //     lant = position.coords.longitude;
-    //     lat = position.coords.latitude;
-    //   });
-    //   console.log(lant);
-    // }
-    ///////////////
+    
     map.on("load", function () {
-      users.map((user) => {
-        var el = document.createElement("div");
-        el.className = "marker";
-        el.style.backgroundImage = `url(${user.image})`;
-        el.style.width = "40px";
-        el.style.height = "40px";
-        el.style.borderRadius = "50%";
-        el.style.borderColor = user.color;
-        el.style.borderWidth = "2px";
-        el.style.borderStyle = "solid";
-
-        new mapboxgl.Marker(el)
-          .setLngLat(user.coordinates)
-          .setPopup(new mapboxgl.Popup().setHTML(`<h1>${user.name}</h1>`))
-          .addTo(map);
-      });
+      var el = document.createElement("div");
+      el.className = style.marker;
+      new mapboxgl.Marker(el)
+        .setLngLat([lng, lat])
+        .addTo(map);
     });
-
-    // map.on("load", function () {
-    //   map.addSource("places", {
-    //     type: "geojson",
-    //     data: {
-    //       type: "FeatureCollection",
-    //       features: [
-    //         {
-    //           type: "Feature",
-    //           properties: {
-    //             description:
-    //               '<strong>Make it Mount Pleasant</strong><p><a href="http://www.mtpleasantdc.com/makeitmtpleasant" target="_blank" title="Opens in a new window">Make it Mount Pleasant</a> is a handmade and vintage market and afternoon of live entertainment and kids activities. 12:00-6:00 p.m.</p>',
-    //             icon: "theatre",
-    //           },
-    //           geometry: {
-    //             type: "Point",
-    //             coordinates: [-77.038659, 38.931567],
-    //           },
-    //         },
-    //       ],
-    //     },
-    //   });
-    // });
-    // map.on("mouseenter", "places", function () {
-    //   map.getCanvas().style.cursor = "pointer";
-    // });
-    // map.on("mouseleave", "places", function () {
-    //   map.getCanvas().style.cursor = "";
-    // });
-  });
+  }, []);
   const [file, setFile] = useState("");
   const [filename, setFilename] = useState("File Name");
   const handleFile = (e) => {
@@ -133,7 +76,7 @@ const Home = (props) => {
     );
     var formdata = new FormData();
     formdata.append("file", file);
-    formdata.append("long", lant);
+    formdata.append("long", lat);
     formdata.append("lat", lat);
     formdata.append("total", "5000");
     formdata.append("note", value);
@@ -157,12 +100,10 @@ const Home = (props) => {
   };
   return (
     <>
-      {open ? (
+      {open && (
         <Snackbar open={open} autoHideDuration={5000}>
           <Alert severity="success"> The file success uploaded!</Alert>
         </Snackbar>
-      ) : (
-        console.log("correct info!")
       )}
       <div className={style.contaner}>
         <div className={style.buttonContaint}>
@@ -173,9 +114,8 @@ const Home = (props) => {
                 className={style.input}
                 onChange={handleFile}
               />
-
               <button type="submit" className={style.button}>
-                {filename}
+              Upload File
               </button>
             </form>
             <button className={style.button} onClick={toService}>
@@ -192,7 +132,7 @@ const Home = (props) => {
             />
           </div>
         </div>
-        <div id="theMap" className={style.map}></div>
+        <div ref={theMap} className={style.map}></div>
       </div>
       <section ref={service} className={style.section}>
         <strong>Service</strong> Lorem ipsum, dolor sit amet consectetur
