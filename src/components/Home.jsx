@@ -9,13 +9,6 @@ function Alert(props) {
 }
 var mapboxgl = require("mapbox-gl/dist/mapbox-gl.js");
 
-const user = {
-  id: 1,
-  name: "Ali",
-  coordinates: [44.31, 33.36],
-  image: "https://placekitten.com/g/50/50/",
-  color: "#e91e63",
-};
 const Home = (props) => {
   const [lng, setLng] = useState(44.313388);
   const [lat, setLat] = useState(33.365859);
@@ -51,29 +44,20 @@ const Home = (props) => {
       center: [lng, lat],
       zoom: 10,
     });
-    
+
     map.on("load", function () {
       var el = document.createElement("div");
       el.className = style.marker;
-      new mapboxgl.Marker(el)
-        .setLngLat([lng, lat])
-        .addTo(map);
+      new mapboxgl.Marker(el).setLngLat([lng, lat]).addTo(map);
     });
   }, []);
   const [file, setFile] = useState("");
-  const [filename, setFilename] = useState("File Name");
-  const handleFile = (e) => {
-    setFile(e.target.files[0]);
-    setFilename(e.target.files[0].name);
-  };
+  const handleFile = (e) => setFile(e.target.files[0]);
   const [open, setOpen] = React.useState(false);
   const onSubmit = async (e) => {
     e.preventDefault();
     var myHeaders = new Headers();
-    myHeaders.append(
-      "token",
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjA2MjE1NjIxfQ.1DtLQa4Iu1GnKiAV43QG1r-vLCxLLss13rc6vvk8a_A"
-    );
+    myHeaders.append("token", localStorage.getItem("blog_token"));
     var formdata = new FormData();
     formdata.append("file", file);
     formdata.append("long", lat);
@@ -115,7 +99,7 @@ const Home = (props) => {
                 onChange={handleFile}
               />
               <button type="submit" className={style.button}>
-              Upload File
+                Upload File
               </button>
             </form>
             <button className={style.button} onClick={toService}>
