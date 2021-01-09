@@ -2,8 +2,6 @@
 In the project directory, you can run:
 
 ### `npm start`
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 ### `npm run build`
 Builds the app for production to the `build` folder.\
@@ -14,3 +12,5 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 ### Making a Progressive Web App
 This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+
+### Live [preview](https://printer-iq.netlify.app/)
